@@ -4,10 +4,22 @@ name: Autograding Tests
 jobs:
   autograding:
     runs-on: ubuntu-latest
+    env:
+      AZURE_OPENAI_GPT4O_DEPLOYMENT_CHAT: ${{ vars.AZURE_OPENAI_GPT4O_DEPLOYMENT_CHAT }}
+      AZURE_OPENAI_GPT4O_ENDPOINT: ${{ vars.AZURE_OPENAI_GPT4O_ENDPOINT }}
+      AZURE_OPENAI_GPT4O_VERSION: ${{ vars.AZURE_OPENAI_GPT4O_VERSION }}
+      AZURE_OPENAI_GPT4O_KEY: ${{ secrets.AZURE_OPENAI_GPT4O_KEY }}
 
     steps:
       - name: Checkout student code
         uses: actions/checkout@v4
+
+      - name: Debug environment variables
+        run: |
+          echo "AZURE_OPENAI_GPT4O_DEPLOYMENT_CHAT=${{ vars.AZURE_OPENAI_GPT4O_DEPLOYMENT_CHAT }}"
+          echo "AZURE_OPENAI_GPT4O_ENDPOINT=${{ vars.AZURE_OPENAI_GPT4O_ENDPOINT }}"
+          echo "AZURE_OPENAI_GPT4O_VERSION=${{ vars.AZURE_OPENAI_GPT4O_VERSION }}"
+          echo "AZURE_OPENAI_GPT4O_KEY is set"
 
       - name: Download teacher's test repository
         env:
@@ -69,11 +81,6 @@ jobs:
       - name: Run tests and calculate score By autograding
         id: PytestCase1
         uses: classroom-resources/autograding-command-grader@v1
-        env:
-          AZURE_OPENAI_GPT4O_DEPLOYMENT_CHAT: ${{ vars.AZURE_OPENAI_GPT4O_DEPLOYMENT_CHAT }}
-          AZURE_OPENAI_GPT4O_ENDPOINT: ${{ vars.AZURE_OPENAI_GPT4O_ENDPOINT }}
-          AZURE_OPENAI_GPT4O_VERSION: ${{ vars.AZURE_OPENAI_GPT4O_VERSION }}
-          AZURE_OPENAI_GPT4O_KEY: ${{ secrets.AZURE_OPENAI_GPT4O_KEY }}
         with:
           test-name: Case1
           command: '.venv/bin/python -m pytest test_assignment.py::test_hw01_1'
