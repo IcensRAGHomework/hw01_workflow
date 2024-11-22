@@ -21,6 +21,13 @@ jobs:
           echo "AZURE_OPENAI_GPT4O_VERSION=${{ vars.AZURE_OPENAI_GPT4O_VERSION }}"
           echo "AZURE_OPENAI_GPT4O_KEY is set"
 
+      - name: Create .env file
+        run: |
+          echo "AZURE_OPENAI_GPT4O_ENDPOINT=${{ vars.AZURE_OPENAI_GPT4O_ENDPOINT }}" >> .env
+          echo "AZURE_OPENAI_GPT4O_KEY=${{ secrets.AZURE_OPENAI_GPT4O_KEY }}" >> .env
+          echo "AZURE_OPENAI_GPT4O_DEPLOYMENT_CHAT=${{ vars.AZURE_OPENAI_GPT4O_DEPLOYMENT_CHAT }}" >> .env
+          echo "AZURE_OPENAI_GPT4O_VERSION=${{ vars.AZURE_OPENAI_GPT4O_VERSION }}" >> .env
+    
       - name: Download teacher's test repository
         env:
           GITHUB_TOKEN: ${{ secrets.ORG_PAT_TOKEN }}
