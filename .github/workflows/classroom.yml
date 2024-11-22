@@ -69,6 +69,11 @@ jobs:
       - name: Run tests and calculate score By autograding
         id: PytestCase1
         uses: classroom-resources/autograding-command-grader@v1
+        env:
+          AZURE_OPENAI_GPT4O_DEPLOYMENT_CHAT: ${{ vars.AZURE_OPENAI_GPT4O_DEPLOYMENT_CHAT }}
+          AZURE_OPENAI_GPT4O_ENDPOINT: ${{ vars.AZURE_OPENAI_GPT4O_ENDPOINT }}
+          AZURE_OPENAI_GPT4O_VERSION: ${{ vars.AZURE_OPENAI_GPT4O_VERSION }}
+          AZURE_OPENAI_GPT4O_KEY: ${{ secrets.AZURE_OPENAI_GPT4O_KEY }}
         with:
           test-name: Case1
           command: '.venv/bin/python -m pytest test_assignment.py::test_hw01_1'
