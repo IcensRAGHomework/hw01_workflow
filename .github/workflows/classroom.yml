@@ -13,7 +13,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.ORG_PAT_TOKEN }}
         run: |
-          git clone https://${{ secrets.ORG_PAT_TOKEN }}@github.com/IcensRAGHomework/assignment-tests-.git temp-tests
+          git clone https://${{ secrets.ORG_PAT_TOKEN }}@github.com/IcensRAGHomework/assignment-tests-hw01.git temp-tests
 
       # Step 1: Cache requirements.txt
       - name: Cache requirements.txt
