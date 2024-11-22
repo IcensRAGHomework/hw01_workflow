@@ -10,16 +10,22 @@ from langchain_core.tools import tool
 
 gpt_chat_version = 'gpt-4o'
 gpt_config = get_model_configuration(gpt_chat_version)
-llm = AzureChatOpenAI(
+
+print("AZURE_OPENAI_GPT4O_ENDPOINT:", os.getenv('AZURE_OPENAI_GPT4O_ENDPOINT'))
+print("AZURE_OPENAI_GPT4O_KEY:", os.getenv('AZURE_OPENAI_GPT4O_KEY'))
+print("AZURE_OPENAI_GPT4O_DEPLOYMENT_CHAT:", os.getenv('AZURE_OPENAI_GPT4O_DEPLOYMENT_CHAT'))
+print("AZURE_OPENAI_GPT4O_VERSION:", os.getenv('AZURE_OPENAI_GPT4O_VERSION'))
+
+def generate_node(question, use_tools_call=False):
+    llm = AzureChatOpenAI(
         model = gpt_config['model_name'],
         deployment_name = gpt_config['deployment_name'],
         openai_api_key = gpt_config['api_key'],
         openai_api_version = gpt_config['api_version'],
         azure_endpoint = gpt_config['api_base'],
         temperature= gpt_config['temperature']
-)
-
-def generate_node(question, use_tools_call=False):
+    )
+        
     system = """
             You are a helpful assistant.
             Please respond in JSON format.
@@ -36,7 +42,7 @@ def generate_node(question, use_tools_call=False):
         )
 
         if use_tools_call:
-            llm_with_tools = llm.bind_tools([fetch_taiwan_calendar])
+            llm_with_tools = llm
         else:
             llm_with_tools = llm
 
