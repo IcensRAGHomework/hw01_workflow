@@ -56,7 +56,10 @@ def generate_node(question, use_tools_call=False):
 
         # RAG generation
         answer = rag_chain.invoke({"question": question})
-        return answer
+        print(answer)
+        text_content = answer.get('text')
+        
+        return text_content
     except Exception as e:
         traceback_info = traceback.format_exc()
         print(traceback_info)
