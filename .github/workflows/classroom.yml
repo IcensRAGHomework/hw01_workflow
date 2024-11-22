@@ -91,10 +91,10 @@ jobs:
         with:
           test-name: Case1
           command: |
-            echo "AZURE_OPENAI_GPT4O_ENDPOINT=${{AZURE_OPENAI_GPT4O_ENDPOINT}}"
-            echo "AZURE_OPENAI_GPT4O_KEY=${{AZURE_OPENAI_GPT4O_KEY}}"
-            echo "AZURE_OPENAI_GPT4O_DEPLOYMENT_CHAT=${{AZURE_OPENAI_GPT4O_DEPLOYMENT_CHAT}}"
-            echo "AZURE_OPENAI_GPT4O_VERSION=${{AZURE_OPENAI_GPT4O_VERSION}}"
+            echo "AZURE_OPENAI_GPT4O_ENDPOINT=${AZURE_OPENAI_GPT4O_ENDPOINT}"
+            echo "AZURE_OPENAI_GPT4O_KEY={AZURE_OPENAI_GPT4O_KEY}"
+            echo "AZURE_OPENAI_GPT4O_DEPLOYMENT_CHAT=${AZURE_OPENAI_GPT4O_DEPLOYMENT_CHAT}"
+            echo "AZURE_OPENAI_GPT4O_VERSION=${AZURE_OPENAI_GPT4O_VERSION}"
             .venv/bin/python -m pytest test_assignment.py::test_hw01_1
             "
           timeout: 15
