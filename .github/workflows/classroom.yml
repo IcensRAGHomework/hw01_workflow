@@ -83,7 +83,14 @@ jobs:
         uses: classroom-resources/autograding-command-grader@v1
         with:
           test-name: Case1
-          command: '.venv/bin/python -m pytest test_assignment.py::test_hw01_1'
+          command: |
+            bash -c "
+            export AZURE_OPENAI_GPT4O_DEPLOYMENT_CHAT=${AZURE_OPENAI_GPT4O_DEPLOYMENT_CHAT} &&
+            export AZURE_OPENAI_GPT4O_ENDPOINT=${AZURE_OPENAI_GPT4O_ENDPOINT} &&
+            export AZURE_OPENAI_GPT4O_VERSION=${AZURE_OPENAI_GPT4O_VERSION} &&
+            export AZURE_OPENAI_GPT4O_KEY=${AZURE_OPENAI_GPT4O_KEY} &&
+            .venv/bin/python -m pytest test_assignment.py::test_hw01_1
+            "
           timeout: 15
           max-score: 50
 
