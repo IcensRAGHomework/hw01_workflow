@@ -56,7 +56,7 @@
 1. **問題**：`根據先前的節日清單，這個節日是否有在該月份清單？{"date": "10-31", "name": "蔣公誕辰紀念日"}'`(範例)
 2. **方法**：
    - 使用 ConversationBufferMemory 的方式記憶前一次的回答。
-   - 實作 `generate_hw03(question)`，用於回答上述問題。
+   - 實作 `generate_hw03(question1, question2)`，用於回答上述問題。 PS.question1是作業2的問題
 3. **輸出格式**：
    - JSON 格式如下：
      ```json
