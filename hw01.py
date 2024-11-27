@@ -225,9 +225,7 @@ def generate_hw04(question):
         Please strictly follow the JSON format below to return the result without including any extra content:
         {
             "Result": {
-                
                     "score": <parsed score>
-                
             }
         }
         Ensure that `score` is parsed from the content of the image provided by the user.
@@ -253,17 +251,17 @@ if __name__ == '__main__':
     try:
         # hw01
         question = '2024年台灣10月紀念日有哪些?'
-        #answer = generate_hw01(question)
-        #parsed_data = json.loads(answer)
-        #result_count = len(parsed_data["Result"])
-        #print(f'HW01:{result_count}')
+        answer = generate_hw01(question)
+        parsed_data = json.loads(answer)
+        result_count = len(parsed_data["Result"])
+        print(f'HW01:{result_count}')
 
         # hw02
         question = "What are the holidays in Taiwan for October?"
-        #answer = generate_hw02(question)
-        #parsed_data = json.loads(answer)
-        #result_count = len(parsed_data["Result"])
-        #print(f'HW02:{result_count}')
+        answer = generate_hw02(question)
+        parsed_data = json.loads(answer)
+        result_count = len(parsed_data["Result"])
+        print(f'HW02:{result_count}')
 
         # hw03
         question1 = "What are the holidays in Taiwan for October?"
@@ -272,34 +270,17 @@ if __name__ == '__main__':
             f"Based on the previous list of holidays, is this holiday included in the list for that month?"
             f"{json.dumps(new_holiday, ensure_ascii=False)}"
         )
-        #answer = generate_hw03(question1, question2)
-        #parsed_data = json.loads(answer)
-        #result_count = parsed_data["Result"]["add"]
-        #print(f'HW03:{result_count}')
+        answer = generate_hw03(question1, question2)
+        parsed_data = json.loads(answer)
+        result_count = parsed_data["Result"]["add"]
+        print(f'HW03:{result_count}')
 
         # hw04
         question = '請問中華台北的積分是多少'
-        #answer = generate_hw04(question)
-        #parsed_data = json.loads(answer)
-        #result_count = parsed_data["Result"]["score"]
-        #print(f'HW04:{result_count}')
-        
-        question = 'Hello World'
-        llm = AzureChatOpenAI(
-            model=gpt_config['model_name'],
-            deployment_name=gpt_config['deployment_name'],
-            openai_api_key=gpt_config['api_key'],
-            openai_api_version=gpt_config['api_version'],
-            azure_endpoint=gpt_config['api_base'],
-            temperature=gpt_config['temperature']
-        )
-        message = HumanMessage(
-            content=[
-                {"type": "text", "text": question},
-            ]
-        )
-        response = llm.invoke([message])
-        print(response.content)
+        answer = generate_hw04(question)
+        parsed_data = json.loads(answer)
+        result_count = parsed_data["Result"]["score"]
+        print(f'HW04:{result_count}')
 
         print('End')
     except Exception as e:
