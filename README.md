@@ -41,24 +41,43 @@
    - JSON 格式如下：
      ```json
      {
-         "Result": 
+         "Result": [
              {
                  "date": "2024-10-10",
                  "name": "國慶日"
+             },
+             {
+                 "date": "2024-10-09",
+                 "name": "重陽節"
+             },
+             {
+                 "date": "2024-10-21",
+                 "name": "華僑節"
+             },
+             {
+                 "date": "2024-10-25",
+                 "name": "台灣光復節"
+             },
+             {
+                 "date": "2024-10-31",
+                 "name": "萬聖節"
              }
+         ]
      }
      ```
-[參考](https://python.langchain.com/v0.1/docs/modules/agents/agent_types/openai_functions_agent/)
+     
 ---
 
 ### 作業3
 
-1. **問題**：`整合前後的對話紀錄，回答某個節日是否包含在目前的節日清單中'`
+1. **問題**：`根據 作業2 的回答，檢查某個節日是否包含在該月份的節日清單中，並回應是否需要新增該節日`
 2. **範例**：`根據先前的節日清單，這個節日{"date": "10-31", "name": "蔣公誕辰紀念日"}是否有在該月份清單？'
 3. **方法**：
-   - 使用 ConversationBufferMemory 的方式記憶前一次的回答。
+   - 使用 RunnableWithMessageHistory 的方式記憶前一次的回答。
    - 實作 `generate_hw03(question2, question3)`，用於回答上述問題。 PS.question2是作業2的問題
 4. **輸出格式**：
+   - add : 這是一個布林值，表示是否需要將節日新增到節日清單中。根據問題判斷該節日是否存在於清單中，如果不存在，則為 true；否則為 false。
+   - reason : 描述為什麼需要或不需要新增節日，具體說明是否該節日已經存在於清單中，以及當前清單的內容。
    - JSON 格式如下：
      ```json
      {
@@ -84,7 +103,7 @@
      {
          "Result": 
              {
-                 "score": 5478
+                 "score": 5498
              }
      }
      ```
@@ -96,8 +115,9 @@
 - 確保輸出的格式與範例一致。
 
 ### 參考來源
-- [參考1](https://api.python.langchain.com/en/latest/agents/langchain.agents.agent.AgentExecutor.html)
-- [參考2](https://learn.microsoft.com/zh-tw/azure/ai-services/openai/how-to/gpt-with-vision?tabs=rest)
-- [參考3](https://python.langchain.com/v0.1/docs/modules/memory/types/buffer/)
-- [參考4](https://python.langchain.com/v0.1/docs/modules/agents/agent_types/openai_functions_agent/)
+- [作業1](https://python.langchain.com/docs/how_to/few_shot_examples_chat/)
+- [作業2](https://api.python.langchain.com/en/latest/agents/langchain.agents.agent.AgentExecutor.html)
+- [作業2](https://python.langchain.com/api_reference/langchain/agents/langchain.agents.openai_functions_agent.base.create_openai_functions_agent.html)
+- [作業3](https://python.langchain.com/docs/how_to/agent_executor/)
+- [作業4](https://learn.microsoft.com/zh-tw/azure/ai-services/openai/how-to/gpt-with-vision?tabs=rest)
 
