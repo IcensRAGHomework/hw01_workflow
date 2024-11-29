@@ -11,7 +11,10 @@ from langchain_openai import AzureChatOpenAI
 from langchain.chains import LLMChain
 from langchain.tools import Tool
 from langchain.agents import AgentExecutor, create_openai_functions_agent
-from langchain.memory import ConversationBufferMemory
+
+from langchain_community.chat_message_histories import ChatMessageHistory
+from langchain_core.chat_history import BaseChatMessageHistory
+from langchain_core.runnables.history import RunnableWithMessageHistory
 
 import base64
 from mimetypes import guess_type
@@ -178,8 +181,13 @@ def generate_hw03(question1, question2):
 
     llm_json = llm.bind(response_format={"type": "json_object"})
 
-    memory = ConversationBufferMemory(return_messages=True)
-
+    store = {}
+    # Function to get or create chat message history based on session_id
+    def get_session_history(session_id: str) -> BaseChatMessageHistory:
+        if session_id not in store:
+            store[session_id] = ChatMessageHistory()
+        return store[session_id]
+    
     # Create an agent using the Azure OpenAI language model, tools, and prompt
     agent = create_openai_functions_agent(
         llm=llm_json,
@@ -188,11 +196,24 @@ def generate_hw03(question1, question2):
     )
 
     # Create an AgentExecutor to manage the agent's execution
-    agent_executor = AgentExecutor(agent=agent, tools=tools, memory=memory, verbose=True)
+    agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
 
-    response = agent_executor.invoke({"input": question1})
+    agent_with_chat_history = RunnableWithMessageHistory(
+        agent_executor,
+        get_session_history,
+        input_messages_key="input",
+        history_messages_key="chat_history",
+    )
+
+    response = agent_with_chat_history.invoke(
+            {"input": question1},
+            config={"configurable": {"session_id": "<foo>"}},
+    )
     print(f'response1:{response}')
-    response = agent_executor.invoke({"input": question2})
+    response = agent_with_chat_history.invoke(
+            {"input": question2},
+            config={"configurable": {"session_id": "<foo>"}},
+    )
     print(f'response2:{response}')
     output_content = response.get('output', '{}')
     
