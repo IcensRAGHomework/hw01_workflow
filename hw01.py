@@ -37,7 +37,7 @@ def generate_hw01(question):
             You are a helpful assistant.
             Please respond in JSON format.
             The top-level key must be 'Result', and its value must be a list of objects.
-            Each object should contain two keys: 'Date' (the date of the holiday) and 'Date_Name' (the name of the holiday).
+            Each object should contain two keys: 'date' (the date of the holiday) and 'name' (the name of the holiday).
             """
     try:
         answer_prompt = ChatPromptTemplate.from_messages(
