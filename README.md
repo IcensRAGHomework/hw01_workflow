@@ -117,7 +117,7 @@
 
 ### 參考來源
 - [作業1](https://python.langchain.com/docs/how_to/few_shot_examples_chat/)
-- [作業2](https://api.python.langchain.com/en/latest/agents/langchain.agents.agent.AgentExecutor.html)
+- [作業2](https://python.langchain.com/api_reference/langchain/agents/langchain.agents.agent.AgentExecutor.html#langchain.agents.agent.AgentExecutor)
 - [作業2](https://python.langchain.com/api_reference/langchain/agents/langchain.agents.openai_functions_agent.base.create_openai_functions_agent.html)
 - [作業3](https://python.langchain.com/docs/how_to/agent_executor/)
 - [作業4](https://learn.microsoft.com/zh-tw/azure/ai-services/openai/how-to/gpt-with-vision?tabs=rest)
